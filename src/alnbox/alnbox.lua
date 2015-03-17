@@ -49,8 +49,38 @@ return function(p)
 
     -- TODO enable idcok, idlok
 
+    local start_row = 0
+    local start_col = 0
+
+    local function moveUp()
+        if start_row > 0 then
+            start_row = start_row - 1
+        end
+    end
+
+    local function moveDown()
+        if start_row + win_rows < p.rows then
+            start_row = start_row + 1
+        end
+    end
+
+    local function moveLeft()
+        if start_col > 0 then
+            start_col = start_col - 1
+        end
+    end
+
+    local function moveRight()
+        if start_col + win_cols < p.cols then
+            start_col = start_col + 1
+        end
+    end
+
     local function pgetCell(row, col)
-        if row < p.rows and col < p.cols then
+        row = start_row + row
+        col = start_col + col
+        if row >= 0 and col >= 0 and
+                row < p.rows and col < p.cols then
             return p.getCell(row, col)
         else
             return {character=' '}
@@ -80,9 +110,22 @@ return function(p)
         end
     end
 
-    drawAll()
-    stdscr:refresh()
-    stdscr:getch()
+    while true do
+        drawAll()
+        stdscr:refresh()
+        local ch = stdscr:getch()
+        if ch == curses.KEY_UP then
+            moveUp()
+        elseif ch == curses.KEY_DOWN then
+            moveDown()
+        elseif ch == curses.KEY_RIGHT then
+            moveRight()
+        elseif ch == curses.KEY_LEFT then
+            moveLeft()
+        elseif ch == string.byte('q') then
+            break
+        end
+    end
 
     curses.endwin()
 end
