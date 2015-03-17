@@ -43,8 +43,6 @@ return function(table_rows, table_cols, getCell)
 
     -- TODO enable idcok, idlok
 
-    -- TODO A_UNDERLINE
-
     local function pgetCell(row, col)
         if row < table_rows and col < table_cols then
             return getCell(row, col)
@@ -67,6 +65,9 @@ return function(table_rows, table_cols, getCell)
                 end
                 if cell.blink then
                     stdscr:attron(curses.A_BLINK)
+                end
+                if cell.underline then
+                    stdscr:attron(curses.A_UNDERLINE)
                 end
                 stdscr:addch(string.byte(cell.character))
             end
