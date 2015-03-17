@@ -18,12 +18,18 @@ local function initializeColors(curses)
 end
 
 -- starts interactive pager
--- getCell is function(row, col) -> table of fields:
---      character, foreground, background, bold, blink
--- Usage: alnbox(5, 5, function() return {character='5'} end)
-return function(table_rows, table_cols, getCell)
-    assert(table_rows >= 1)
-    assert(table_cols >= 1)
+-- gets a table of properties:
+--  * rows -- number of rows
+--  * cols -- number of cols
+--  * getCell -- function (row, col) -> table of fields:
+--      character, foreground, background,
+--      bold, blink, underline
+-- Usage: alnbox {rows=5, cols=5,
+--     getCell = function() return {character='5'} end,
+--   }
+return function(p)
+    assert(p.rows >= 1)
+    assert(p.cols >= 1)
 
     local curses = require 'posix.curses'
 
@@ -44,8 +50,8 @@ return function(table_rows, table_cols, getCell)
     -- TODO enable idcok, idlok
 
     local function pgetCell(row, col)
-        if row < table_rows and col < table_cols then
-            return getCell(row, col)
+        if row < p.rows and col < p.cols then
+            return p.getCell(row, col)
         else
             return {character=' '}
         end
