@@ -18,10 +18,9 @@ local function initializeColors(curses)
 end
 
 -- starts interactive pager
--- getCell is function(row, col) ->
---      character, foreground, background, [bold, [blink]]
--- Usage:
--- alnbox(5, 5, function() return '5', 0, 2, true, true end)
+-- getCell is function(row, col) -> table of fields:
+--      character, foreground, background, bold, blink
+-- Usage: alnbox(5, 5, function() return {character='5'} end)
 return function(table_rows, table_cols, getCell)
     assert(table_rows >= 1)
     assert(table_cols >= 1)
@@ -50,25 +49,26 @@ return function(table_rows, table_cols, getCell)
         if row < table_rows and col < table_cols then
             return getCell(row, col)
         else
-            return ' ', curses.COLOR_WHITE, curses.COLOR_BLACK
+            return {character=' '}
         end
     end
 
     local function drawAll()
         for row = 0, win_rows - 1 do
             for col = 0, win_cols - 1 do
-                local ch, fg, bg, bold, blink =
-                    pgetCell(row, col)
+                local cell = pgetCell(row, col)
                 stdscr:move(row, col)
+                local fg = cell.foreground or curses.COLOR_WHITE
+                local bg = cell.background or curses.COLOR_BLACK
                 local pair = makePair(fg, bg)
                 stdscr:attrset(curses.color_pair(pair))
-                if bold then
+                if cell.bold then
                     stdscr:attron(curses.A_BOLD)
                 end
-                if blink then
+                if cell.blink then
                     stdscr:attron(curses.A_BLINK)
                 end
-                stdscr:addch(string.byte(ch))
+                stdscr:addch(string.byte(cell.character))
             end
         end
     end
