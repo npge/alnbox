@@ -11,10 +11,12 @@ description = {
 dependencies = {
     "lua >= 5.1",
     "luaposix",
+    "lua-rote",
 }
 build = {
     type = "builtin",
     modules = {
-        ['alnbox.alnbox'] = 'src/alnbox/alnbox.lua'
+        ['alnbox.alnbox'] = 'src/alnbox/alnbox.lua',
+        ['alnbox.cursesConsts'] = 'src/alnbox/cursesConsts.lua',
     },
 }
