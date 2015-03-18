@@ -24,12 +24,19 @@ end
 --  * getCell -- function (row, col) -> table of fields:
 --      character, foreground, background,
 --      bold, blink, underline
+--  * top_headers -- number of top header rows
+--  * left_headers -- number of left header rows
+--  * getTopHeader -- function(row, col) -> table of fields
+--  * getLeftHeader -- function(row, col) -> table of fields
 -- Usage: alnbox {rows=5, cols=5,
 --     getCell = function() return {character='5'} end,
 --   }
 return function(p)
     assert(p.rows >= 1)
     assert(p.cols >= 1)
+
+    local top_headers = p.top_headers or 0
+    local left_headers = p.left_headers or 0
 
     local curses = require 'posix.curses'
 
@@ -77,13 +84,20 @@ return function(p)
     end
 
     local function pgetCell(row, col)
-        row = start_row + row
-        col = start_col + col
-        if row >= 0 and col >= 0 and
-                row < p.rows and col < p.cols then
-            return p.getCell(row, col)
-        else
+        local top_header = row < top_headers
+        local left_header = col < left_headers
+        local row1 = start_row + row
+        local col1 = start_col + col
+        if row1 >= p.rows or col1 >= p.cols then
             return {character=' '}
+        elseif top_header and left_header then
+            return {character=' '}
+        elseif top_header then
+            return p.getTopHeader(row, col1)
+        elseif left_header then
+            return p.getLeftHeader(row1, col)
+        else
+            return p.getCell(row1, col1)
         end
     end
 
