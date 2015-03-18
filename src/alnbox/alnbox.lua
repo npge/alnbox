@@ -102,6 +102,22 @@ return function(p)
         end
     end
 
+    local function cleanChar(ch)
+        if ch == '' then
+            ch = ' '
+        end
+        if type(ch) == 'number' and ch >= 0 and ch < 10 then
+            ch = tostring(ch)
+        end
+        if type(ch) == 'string' then
+            ch = string.byte(ch)
+        end
+        if type(ch) ~= 'number' then
+            ch = string.byte(' ')
+        end
+        return ch
+    end
+
     local function drawAll()
         for row = 0, win_rows - 1 do
             for col = 0, win_cols - 1 do
@@ -120,21 +136,7 @@ return function(p)
                 if cell.underline then
                     stdscr:attron(curses.A_UNDERLINE)
                 end
-                if cell.character == '' then
-                    cell.character = ' '
-                end
-                if type(cell.character) == 'number' and
-                        cell.character >= 0 and
-                        cell.character < 10 then
-                    cell.character = tostring(cell.character)
-                end
-                if type(cell.character) == 'string' then
-                    cell.character = string.byte(cell.character)
-                end
-                if type(cell.character) ~= 'number' then
-                    cell.character = string.byte(' ')
-                end
-                stdscr:addch(cell.character)
+                stdscr:addch(cleanChar(cell.character))
             end
         end
     end
