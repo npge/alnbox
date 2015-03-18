@@ -67,7 +67,7 @@ return function(p)
     end
 
     local function moveDown()
-        if start_row + win_rows < p.rows then
+        if start_row + win_rows - top_headers < p.rows then
             start_row = start_row + 1
         end
     end
@@ -79,7 +79,7 @@ return function(p)
     end
 
     local function moveRight()
-        if start_col + win_cols < p.cols then
+        if start_col + win_cols - left_headers < p.cols then
             start_col = start_col + 1
         end
     end
@@ -87,8 +87,8 @@ return function(p)
     local function pgetCell(row, col)
         local top_header = row < top_headers
         local left_header = col < left_headers
-        local row1 = start_row + row
-        local col1 = start_col + col
+        local row1 = start_row + row - top_headers
+        local col1 = start_col + col - left_headers
         if row1 >= p.rows or col1 >= p.cols then
             return {character=' '}
         elseif top_header and left_header then
