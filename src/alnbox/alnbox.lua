@@ -44,6 +44,8 @@ return function(p)
     assert(not p.bottom_headers or p.getBottomHeader)
     assert(not p.right_headers or p.getRightHeader)
 
+    assert(p.getCell)
+
     local top_headers = p.top_headers or 0
     local left_headers = p.left_headers or 0
     local right_headers = p.right_headers or 0
