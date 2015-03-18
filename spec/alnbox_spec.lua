@@ -6,7 +6,7 @@ local function startScript(rt, code)
     local f = io.open(fname, 'w')
     f:write(code)
     f:close()
-    local cmd = 'lua %s; rm %s'
+    local cmd = 'lua -lluacov %s; rm %s'
     rt:forkPty(cmd:format(fname, fname))
 end
 
