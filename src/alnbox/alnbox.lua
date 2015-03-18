@@ -119,6 +119,9 @@ return function(p)
                 if cell.underline then
                     stdscr:attron(curses.A_UNDERLINE)
                 end
+                if cell.character == '' then
+                    cell.character = ' '
+                end
                 stdscr:addch(string.byte(cell.character))
             end
         end
