@@ -26,8 +26,12 @@ end
 --      bold, blink, underline
 --  * top_headers -- number of top header rows
 --  * left_headers -- number of left header rows
+--  * right_headers -- number of right header rows
+--  * bottom_headers -- number of bottom header rows
 --  * getTopHeader -- function(row, col) -> table of fields
 --  * getLeftHeader -- function(row, col) -> table of fields
+--  * getRightHeader -- function(row, col) -> table of fields
+--  * getBottomHeader -- function(row, col) -> table of fields
 -- Usage: alnbox {rows=5, cols=5,
 --     getCell = function() return {character='5'} end,
 --   }
@@ -35,8 +39,15 @@ return function(p)
     assert(p.rows >= 1)
     assert(p.cols >= 1)
 
+    assert(not p.top_headers or p.getTopHeader)
+    assert(not p.left_headers or p.getLeftHeader)
+    assert(not p.bottom_headers or p.getBottomHeader)
+    assert(not p.right_headers or p.getRightHeader)
+
     local top_headers = p.top_headers or 0
     local left_headers = p.left_headers or 0
+    local right_headers = p.right_headers or 0
+    local bottom_headers = p.bottom_headers or 0
 
     local curses = require 'posix.curses'
 
@@ -47,7 +58,12 @@ return function(p)
     curses.curs_set(0)
     stdscr:nodelay(false)
     stdscr:keypad(true)
+
     local win_rows, win_cols = stdscr:getmaxyx()
+    local table_rows = win_rows - top_headers - bottom_headers
+    local table_cols = win_cols - left_headers - right_headers
+    assert(table_rows >= 1)
+    assert(table_cols >= 1)
 
     -- TODO has_colors()
     initializeColors(curses)
@@ -67,7 +83,7 @@ return function(p)
     end
 
     local function moveDown()
-        if start_row + win_rows - top_headers < p.rows then
+        if start_row + table_rows < p.rows then
             start_row = start_row + 1
         end
     end
@@ -79,7 +95,7 @@ return function(p)
     end
 
     local function moveRight()
-        if start_col + win_cols - left_headers < p.cols then
+        if start_col + table_cols < p.cols then
             start_col = start_col + 1
         end
     end
@@ -87,16 +103,26 @@ return function(p)
     local function pgetCell(row, col)
         local top_header = row < top_headers
         local left_header = col < left_headers
+        local bottom_header = row + bottom_headers >= win_rows
+        local right_header = col + right_headers >= win_cols
         local row1 = start_row + row - top_headers
         local col1 = start_col + col - left_headers
-        if row1 >= p.rows or col1 >= p.cols then
+        if row1 >= p.rows + bottom_headers or
+                col1 >= p.cols + right_headers then
             return {character=' '}
-        elseif top_header and left_header then
+        elseif (top_header or bottom_header) and
+                (left_header or right_header) then
             return {character=' '}
         elseif top_header then
             return p.getTopHeader(row, col1)
         elseif left_header then
             return p.getLeftHeader(row1, col)
+        elseif bottom_header then
+            local row2 = row - top_headers - table_rows
+            return p.getBottomHeader(row2, col1)
+        elseif right_header then
+            local col2 = col - left_headers - table_cols
+            return p.getRightHeader(row1, col2)
         else
             return p.getCell(row1, col1)
         end
