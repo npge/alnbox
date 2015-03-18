@@ -4,4 +4,4 @@ luarocks install busted --local
 luarocks install luaposix --local
 luarocks install luacov --local
 luarocks install luacov-coveralls --local
-luarocks install rote --local
+luarocks install lua-rote --local
