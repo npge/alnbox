@@ -1,3 +1,7 @@
+local function sleep()
+    os.execute('sleep 5')
+end
+
 describe("alnbox.alnbox", function()
     it("draws simple alignment", function()
         local rote = require 'rote'
@@ -8,7 +12,7 @@ describe("alnbox.alnbox", function()
             alnbox {rows = 1, cols = 1,
                 getCell = function() return 'X' end}
         end)
-        os.execute('sleep 5')
+        sleep()
         rt:update()
         assert.truthy(rt:termText():match('X'))
         rt:write('q')
