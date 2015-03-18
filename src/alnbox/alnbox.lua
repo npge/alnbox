@@ -109,10 +109,10 @@ return function(p)
         local col1 = start_col + col - left_headers
         if row1 >= p.rows + bottom_headers or
                 col1 >= p.cols + right_headers then
-            return {character=' '}
+            return ' '
         elseif (top_header or bottom_header) and
                 (left_header or right_header) then
-            return {character=' '}
+            return ' '
         elseif top_header then
             return p.getTopHeader(row, col1)
         elseif left_header then
@@ -148,6 +148,9 @@ return function(p)
         for row = 0, win_rows - 1 do
             for col = 0, win_cols - 1 do
                 local cell = pgetCell(row, col)
+                if type(cell) ~= 'table' then
+                    cell = {character=cell}
+                end
                 stdscr:move(row, col)
                 local fg = cell.foreground or curses.COLOR_WHITE
                 local bg = cell.background or curses.COLOR_BLACK
