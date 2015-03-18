@@ -123,7 +123,18 @@ return function(p)
                 if cell.character == '' then
                     cell.character = ' '
                 end
-                stdscr:addch(string.byte(cell.character))
+                if type(cell.character) == 'number' and
+                        cell.character >= 0 and
+                        cell.character < 10 then
+                    cell.character = tostring(cell.character)
+                end
+                if type(cell.character) == 'string' then
+                    cell.character = string.byte(cell.character)
+                end
+                if type(cell.character) ~= 'number' then
+                    cell.character = string.byte(' ')
+                end
+                stdscr:addch(cell.character)
             end
         end
     end
