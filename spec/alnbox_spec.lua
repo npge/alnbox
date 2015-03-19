@@ -1,5 +1,6 @@
 local function sleep()
-    os.execute('sleep 5')
+    local duration = os.getenv('TEST_SLEEP') or 5
+    os.execute('sleep ' .. duration)
 end
 
 describe("alnbox.alnbox", function()
