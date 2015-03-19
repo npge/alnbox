@@ -2,14 +2,11 @@
 -- Copyright (C) 2015 Boris Nagaev
 -- See the LICENSE file for terms of use
 
-local function makePair(foreground, background)
-    return background * 8 + 7 - foreground
-end
-
 local function initializeColors(curses)
     for foreground = 0, 7 do
         for background = 0, 7 do
             if foreground ~= 7 or background ~= 0 then
+                local makePair = require 'alnbox.makePair'
                 local pair = makePair(foreground, background)
                 curses.init_pair(pair, foreground, background)
             end
@@ -156,6 +153,7 @@ return function(p)
                 stdscr:move(row, col)
                 local fg = cell.foreground or curses.COLOR_WHITE
                 local bg = cell.background or curses.COLOR_BLACK
+                local makePair = require 'alnbox.makePair'
                 local pair = makePair(fg, bg)
                 stdscr:attrset(curses.color_pair(pair))
                 if cell.bold then
