@@ -19,5 +19,7 @@ build = {
         ['alnbox.alnbox'] = 'src/alnbox/alnbox.lua',
         ['alnbox.cursesConsts'] = 'src/alnbox/cursesConsts.lua',
         ['alnbox.util'] = 'src/alnbox/util.lua',
+        ['alnbox.makePair'] = 'src/alnbox/makePair.lua',
+        ['alnbox.initializeColors'] = 'src/alnbox/initializeColors.lua',
     },
 }
