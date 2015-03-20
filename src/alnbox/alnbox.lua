@@ -2,18 +2,6 @@
 -- Copyright (C) 2015 Boris Nagaev
 -- See the LICENSE file for terms of use
 
-local function initializeColors(curses)
-    for foreground = 0, 7 do
-        for background = 0, 7 do
-            if foreground ~= 7 or background ~= 0 then
-                local makePair = require 'alnbox.makePair'
-                local pair = makePair(foreground, background)
-                curses.init_pair(pair, foreground, background)
-            end
-        end
-    end
-end
-
 -- starts interactive pager
 -- gets a table of properties:
 --  * rows -- number of rows
@@ -65,6 +53,7 @@ return function(p)
     assert(table_cols >= 1)
 
     -- TODO has_colors()
+    local initializeColors = require 'alnbox.initializeColors'
     initializeColors(curses)
 
     -- TODO has_ic, has_il
