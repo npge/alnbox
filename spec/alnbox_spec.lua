@@ -19,6 +19,28 @@ describe("alnbox.alnbox", function()
         rt:write('q')
     end)
 
+    it("draws simple alignment with #right header", function()
+        local rote = require 'rote'
+        local rt = rote.RoteTerm(24, 80)
+        local startCode = require 'alnbox.util'.startCode
+        startCode(rt, function()
+            local alnbox = require 'alnbox.alnbox'
+            alnbox {rows = 1, cols = 1,
+                getCell = function()
+                    return 'X'
+                end,
+                right_headers = 1,
+                getRightHeader = function()
+                    return '|'
+                end,
+            }
+        end)
+        sleep()
+        rt:update()
+        assert.truthy(rt:termText():match('X|'))
+        rt:write('q')
+    end)
+
     it("moves with arrow buttons", function()
         local rote = require 'rote'
         local cursesConsts = require 'alnbox.cursesConsts'

@@ -47,6 +47,8 @@ return function(window, p)
     window:idlok()
 
     local win_rows, win_cols = window:getmaxyx()
+    win_rows = math.min(win_rows, top_headers + p.rows + bottom_headers)
+    win_cols = math.min(win_cols, left_headers + p.cols + right_headers)
     local table_rows = win_rows - top_headers - bottom_headers
     local table_cols = win_cols - left_headers - right_headers
     assert(table_rows >= 1)
