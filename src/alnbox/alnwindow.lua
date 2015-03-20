@@ -42,16 +42,15 @@ return function(window, p)
     local right_headers = p.right_headers or 0
     local bottom_headers = p.bottom_headers or 0
 
+    -- enable hardware character insert/delete
+    window:idcok()
+    window:idlok()
+
     local win_rows, win_cols = window:getmaxyx()
     local table_rows = win_rows - top_headers - bottom_headers
     local table_cols = win_cols - left_headers - right_headers
     assert(table_rows >= 1)
     assert(table_cols >= 1)
-
-    -- TODO has_ic, has_il
-    -- https://luaposix.github.io/luaposix/modules/posix.curses.html#has_ic
-
-    -- TODO enable idcok, idlok
 
     local start_row = 0
     local start_col = 0
