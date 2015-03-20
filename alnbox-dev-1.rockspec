@@ -18,6 +18,7 @@ build = {
     modules = {
         ['alnbox.init'] = 'src/alnbox/init.lua',
         ['alnbox.alnbox'] = 'src/alnbox/alnbox.lua',
+        ['alnbox.alnwindow'] = 'src/alnbox/alnwindow.lua',
         ['alnbox.cursesConsts'] = 'src/alnbox/cursesConsts.lua',
         ['alnbox.util'] = 'src/alnbox/util.lua',
         ['alnbox.makePair'] = 'src/alnbox/makePair.lua',
