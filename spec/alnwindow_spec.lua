@@ -10,17 +10,8 @@ describe("alnbox.alnwindow", function()
         local startCode = require 'alnbox.util'.startCode
         startCode(rt, function()
             local curses = require 'posix.curses'
-
-            local stdscr = curses.initscr()
-            curses.echo(false)
-            curses.start_color()
-            curses.raw(true)
-            curses.curs_set(0)
-            stdscr:nodelay(false)
-            stdscr:keypad(true)
-
-            local initializeColors = require 'alnbox.initializeColors'
-            initializeColors(curses)
+            local initializeCurses = require 'alnbox.initializeCurses'
+            local stdscr = initializeCurses(curses)
 
             local nlines = 1
             local ncols = 1

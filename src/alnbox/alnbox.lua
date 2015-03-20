@@ -9,18 +9,8 @@
 --   }
 return function(p)
     local curses = require 'posix.curses'
-
-    local stdscr = curses.initscr()
-    curses.echo(false)
-    curses.start_color()
-    curses.raw(true)
-    curses.curs_set(0)
-    stdscr:nodelay(false)
-    stdscr:keypad(true)
-
-    -- TODO has_colors()
-    local initializeColors = require 'alnbox.initializeColors'
-    initializeColors(curses)
+    local initializeCurses = require 'alnbox.initializeCurses'
+    local stdscr = initializeCurses(curses)
 
     local alnwindow = require 'alnbox.alnwindow'
     local win = alnwindow(stdscr, p)

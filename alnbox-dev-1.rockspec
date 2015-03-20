@@ -24,5 +24,6 @@ build = {
         ['alnbox.util'] = 'src/alnbox/util.lua',
         ['alnbox.makePair'] = 'src/alnbox/makePair.lua',
         ['alnbox.initializeColors'] = 'src/alnbox/initializeColors.lua',
+        ['alnbox.initializeCurses'] = 'src/alnbox/initializeCurses.lua',
     },
 }
