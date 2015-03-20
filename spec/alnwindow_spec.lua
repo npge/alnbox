@@ -30,8 +30,13 @@ describe("alnbox.alnwindow", function()
                 begin_y, begin_x)
 
             local alnwindow = require 'alnbox.alnwindow'
-            alnwindow(win, {rows = 1, cols = 1,
+            local aw = alnwindow(win, {rows = 1, cols = 1,
                 getCell = function() return 'X' end})
+
+            local navigate = require 'alnbox.navigate'
+            local refresh = function() win:refresh() end
+            local getch = function() return win:getch() end
+            navigate(aw, refresh, getch)
 
             curses.endwin()
         end)

@@ -23,7 +23,12 @@ return function(p)
     initializeColors(curses)
 
     local alnwindow = require 'alnbox.alnwindow'
-    alnwindow(stdscr, p)
+    local win = alnwindow(stdscr, p)
+
+    local navigate = require 'alnbox.navigate'
+    local refresh = function() stdscr:refresh() end
+    local getch = function() return stdscr:getch() end
+    navigate(win, refresh, getch)
 
     curses.endwin()
 end

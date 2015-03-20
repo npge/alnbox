@@ -19,6 +19,13 @@
 --  * getLeftHeader -- function(row, col) -> table of fields
 --  * getRightHeader -- function(row, col) -> table of fields
 --  * getBottomHeader -- function(row, col) -> table of fields
+-- Result:
+-- Object with the following methods:
+--  * drawAll
+--  * moveUp
+--  * moveDown
+--  * moveLeft
+--  * moveRight
 return function(window, p)
     assert(p.rows >= 1)
     assert(p.cols >= 1)
@@ -144,20 +151,11 @@ return function(window, p)
         end
     end
 
-    while true do
-        drawAll()
-        window:refresh()
-        local ch = window:getch()
-        if ch == curses.KEY_UP then
-            moveUp()
-        elseif ch == curses.KEY_DOWN then
-            moveDown()
-        elseif ch == curses.KEY_RIGHT then
-            moveRight()
-        elseif ch == curses.KEY_LEFT then
-            moveLeft()
-        elseif ch == string.byte('q') then
-            break
-        end
-    end
+    return {
+        drawAll = drawAll,
+        moveUp = moveUp,
+        moveDown = moveDown,
+        moveRight = moveRight,
+        moveLeft = moveLeft,
+    }
 end
