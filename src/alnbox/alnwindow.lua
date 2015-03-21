@@ -30,6 +30,10 @@
 --  * moveDown
 --  * moveLeft
 --  * moveRight
+--  * moveUpEnd
+--  * moveDownEnd
+--  * moveRightEnd
+--  * moveLeftEnd
 return function(window, p)
     assert(p.rows >= 1)
     assert(p.cols >= 1)
@@ -139,11 +143,43 @@ return function(window, p)
         end
     end
 
+    local function moveUpEnd()
+        if start_row > 0 then
+            start_row = 0
+            drawAll()
+        end
+    end
+
+    local function moveDownEnd()
+        if start_row + table_rows < p.rows then
+            start_row = p.rows - table_rows
+            drawAll()
+        end
+    end
+
+    local function moveLeftEnd()
+        if start_col > 0 then
+            start_col = 0
+            drawAll()
+        end
+    end
+
+    local function moveRightEnd()
+        if start_col + table_cols < p.cols then
+            start_col = p.cols - table_cols
+            drawAll()
+        end
+    end
+
     return {
         drawAll = drawAll,
         moveUp = moveUp,
         moveDown = moveDown,
         moveRight = moveRight,
         moveLeft = moveLeft,
+        moveUpEnd = moveUpEnd,
+        moveDownEnd = moveDownEnd,
+        moveRightEnd = moveRightEnd,
+        moveLeftEnd = moveLeftEnd,
     }
 end

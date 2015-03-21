@@ -19,6 +19,14 @@ return function(aw, refresh, getch)
             aw:moveRight()
         elseif ch == cursesConsts.KEY_LEFT then
             aw:moveLeft()
+        elseif ch == cursesConsts.KEY_PPAGE then
+            aw:moveUpEnd()
+        elseif ch == cursesConsts.KEY_NPAGE then
+            aw:moveDownEnd()
+        elseif ch == cursesConsts.KEY_END then
+            aw:moveRightEnd()
+        elseif ch == cursesConsts.KEY_HOME then
+            aw:moveLeftEnd()
         elseif ch == string.byte('q') then
             break
         end
