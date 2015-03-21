@@ -3,7 +3,7 @@
 -- See the LICENSE file for terms of use
 
 -- listen keyboard and call appropriate methods of AlnWindow
-return function(aw, refresh, getch)
+return function(aw, refresh, getch, bindings)
     local cursesConsts = require 'alnbox.cursesConsts'
 
     aw:drawAll()
@@ -29,6 +29,9 @@ return function(aw, refresh, getch)
             aw:moveLeftEnd()
         elseif ch == string.byte('q') then
             break
+        elseif bindings and bindings[ch] then
+            local func = bindings[ch]
+            func()
         end
     end
 end
