@@ -11,4 +11,6 @@ return {
     makePair = require 'alnbox.makePair',
     initializeCurses = require 'alnbox.initializeCurses',
     initializeColors = require 'alnbox.initializeColors',
+    putCell = require 'alnbox.putCell',
+    cleanChar = require 'alnbox.cleanChar',
 }
