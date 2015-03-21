@@ -109,46 +109,12 @@ return function(window, p)
         end
     end
 
-    local function cleanChar(ch)
-        if ch == '' then
-            ch = ' '
-        end
-        if type(ch) == 'number' and ch >= 0 and ch < 10 then
-            ch = tostring(ch)
-        end
-        if type(ch) == 'string' then
-            ch = string.byte(ch)
-        end
-        if type(ch) ~= 'number' then
-            ch = string.byte(' ')
-        end
-        return ch
-    end
-
     local function drawAll()
+        local putCell = require 'alnbox.putCell'
         for row = 0, win_rows - 1 do
             for col = 0, win_cols - 1 do
-                local curses = require 'posix.curses'
                 local cell = pgetCell(row, col)
-                if type(cell) ~= 'table' then
-                    cell = {character=cell}
-                end
-                window:move(row, col)
-                local fg = cell.foreground or curses.COLOR_WHITE
-                local bg = cell.background or curses.COLOR_BLACK
-                local makePair = require 'alnbox.makePair'
-                local pair = makePair(fg, bg)
-                window:attrset(curses.color_pair(pair))
-                if cell.bold then
-                    window:attron(curses.A_BOLD)
-                end
-                if cell.blink then
-                    window:attron(curses.A_BLINK)
-                end
-                if cell.underline then
-                    window:attron(curses.A_UNDERLINE)
-                end
-                window:addch(cleanChar(cell.character))
+                putCell(window, row, col, cell)
             end
         end
     end
