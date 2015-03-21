@@ -1,0 +1,130 @@
+diff --git a/src/alnbox/alnwindow.lua b/src/alnbox/alnwindow.lua
+index 249d88a..b238c2c 100644
+--- a/src/alnbox/alnwindow.lua
++++ b/src/alnbox/alnwindow.lua
+@@ -42,10 +42,6 @@ return function(window, p)
+     local right_headers = p.right_headers or 0
+     local bottom_headers = p.bottom_headers or 0
+ 
+-    -- enable hardware character insert/delete
+-    window:idcok()
+-    window:idlok()
+-
+     local win_rows, win_cols = window:getmaxyx()
+     win_rows = math.min(win_rows, top_headers + p.rows + bottom_headers)
+     win_cols = math.min(win_cols, left_headers + p.cols + right_headers)
+@@ -57,6 +53,66 @@ return function(window, p)
+     local start_row = 0
+     local start_col = 0
+ 
++    local function shiftRow(f)
++        return function(row, col)
++            return f(row + start_row, col)
++        end
++    end
++
++    local function shiftCol(f)
++        return function(row, col)
++            return f(row, col + start_col)
++        end
++    end
++
++    local function childRegion(nrows, ncols,
++            begin_y, begin_x, getCell)
++        local region
++        if nrows >= 1 and ncols >= 1 then
++            region = {}
++            region.nrows = nrows
++            region.ncols = ncols
++            region.getCell = assert(getCell)
++            local win = window:derive(nrows, ncols,
++                begin_y, begin_x)
++            -- enable hardware character insert/delete
++            win:idcok()
++            win:idlok()
++            --
++            region.window = win
++        end
++        return region
++    end
++
++    local function drawWin(region)
++        if not region then
++            return
++        end
++        local putCell = require 'alnbox.putCell'
++        for row = 0, region.nrows - 1 do
++            for col = 0, region.ncols - 1 do
++                local cell = region.getCell(row, col)
++                putCell(region.window, row, col, cell)
++            end
++        end
++        region.window:refresh()
++    end
++
++    local left_region = childRegion(table_rows, left_headers,
++        top_headers, 0, shiftRow(p.getLeftHeader))
++    local top_region = childRegion(top_headers, table_cols,
++        0, left_headers, shiftCol(p.getTopHeader))
++    local right_region = childRegion(table_rows, right_headers,
++        top_headers, left_headers + table_cols,
++        shiftRow(p.getRightHeader))
++    local bottom_region = childRegion(bottom_headers, table_cols,
++        top_headers + table_rows, left_headers,
++        shiftCol(p.getBottomHeader))
++
++    local central_region = assert(childRegion(table_rows, table_cols,
++        top_headers, left_headers,
++        shiftRow(shiftCol(p.getCell))))
++
+     local function moveUp()
+         if start_row > 0 then
+             start_row = start_row - 1
+@@ -81,42 +137,12 @@ return function(window, p)
+         end
+     end
+ 
+-    local function pgetCell(row, col)
+-        local top_header = row < top_headers
+-        local left_header = col < left_headers
+-        local bottom_header = row + bottom_headers >= win_rows
+-        local right_header = col + right_headers >= win_cols
+-        local row1 = start_row + row - top_headers
+-        local col1 = start_col + col - left_headers
+-        if row1 >= p.rows + bottom_headers or
+-                col1 >= p.cols + right_headers then
+-            return ' '
+-        elseif (top_header or bottom_header) and
+-                (left_header or right_header) then
+-            return ' '
+-        elseif top_header then
+-            return p.getTopHeader(row, col1)
+-        elseif left_header then
+-            return p.getLeftHeader(row1, col)
+-        elseif bottom_header then
+-            local row2 = row - top_headers - table_rows
+-            return p.getBottomHeader(row2, col1)
+-        elseif right_header then
+-            local col2 = col - left_headers - table_cols
+-            return p.getRightHeader(row1, col2)
+-        else
+-            return p.getCell(row1, col1)
+-        end
+-    end
+-
+     local function drawAll()
+-        local putCell = require 'alnbox.putCell'
+-        for row = 0, win_rows - 1 do
+-            for col = 0, win_cols - 1 do
+-                local cell = pgetCell(row, col)
+-                putCell(window, row, col, cell)
+-            end
+-        end
++        drawWin(left_region)
++        drawWin(top_region)
++        drawWin(right_region)
++        drawWin(bottom_region)
++        drawWin(central_region)
+     end
+ 
+     return {
