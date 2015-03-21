@@ -6,8 +6,9 @@
 return function(aw, refresh, getch)
     local cursesConsts = require 'alnbox.cursesConsts'
 
+    aw:drawAll()
+
     while true do
-        aw:drawAll()
         refresh()
         local ch = getch()
         if ch == cursesConsts.KEY_UP then

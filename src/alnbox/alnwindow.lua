@@ -61,30 +61,6 @@ return function(window, p)
     local start_row = 0
     local start_col = 0
 
-    local function moveUp()
-        if start_row > 0 then
-            start_row = start_row - 1
-        end
-    end
-
-    local function moveDown()
-        if start_row + table_rows < p.rows then
-            start_row = start_row + 1
-        end
-    end
-
-    local function moveLeft()
-        if start_col > 0 then
-            start_col = start_col - 1
-        end
-    end
-
-    local function moveRight()
-        if start_col + table_cols < p.cols then
-            start_col = start_col + 1
-        end
-    end
-
     local function pgetCell(row, col)
         local top_header = row < top_headers
         local left_header = col < left_headers
@@ -132,6 +108,34 @@ return function(window, p)
                 local cell = pgetCell(row, col)
                 putCell(window, row, col, cell)
             end
+        end
+    end
+
+    local function moveUp()
+        if start_row > 0 then
+            start_row = start_row - 1
+            drawAll()
+        end
+    end
+
+    local function moveDown()
+        if start_row + table_rows < p.rows then
+            start_row = start_row + 1
+            drawAll()
+        end
+    end
+
+    local function moveLeft()
+        if start_col > 0 then
+            start_col = start_col - 1
+            drawAll()
+        end
+    end
+
+    local function moveRight()
+        if start_col + table_cols < p.cols then
+            start_col = start_col + 1
+            drawAll()
         end
     end
 
