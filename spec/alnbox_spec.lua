@@ -144,4 +144,105 @@ describe("alnbox.alnbox", function()
         -- quit
         rt:write('q')
     end)
+
+    it("prints #headers", function()
+        local rote = require 'rote'
+        local cursesConsts = require 'alnbox.cursesConsts'
+        local rt = rote.RoteTerm(6, 20)
+        local startCode = require 'alnbox.util'.startCode
+        startCode(rt, function()
+            local alnbox = require 'alnbox.alnbox'
+            alnbox {rows = 6, cols = 100,
+                getCell = function(row, col)
+                    return (row + 3 * col) % 4
+                end,
+                top_headers = 2,
+                getTopHeader = function(row, col)
+                    if row == 0 then
+                        return string.byte('A') + col
+                    else
+                        return col % 2
+                    end
+                end,
+                left_headers = 1,
+                getLeftHeader = function(row, col)
+                    return {character = '*',
+                        foreground = row + 1,
+                        background = row,
+                    }
+                end,
+                right_headers = 2,
+                getRightHeader = function(row, col)
+                    if col == 0 then
+                        return string.byte('a') + row
+                    else
+                        return {character = '|',
+                            background = row + 1,
+                            foreground = row,
+                        }
+                    end
+                end,
+                bottom_headers = 1,
+                getBottomHeader = function(row, col)
+                    return '-'
+                end,
+            }
+        end)
+        sleep()
+        rt:update()
+        assert.truthy(rt:rowText(0):match( 'ABCDEFGHIJKLMNOPQ'))
+        assert.truthy(rt:rowText(1):match( '01010101010101010'))
+        assert.truthy(rt:rowText(2):match('*03210321032103210a|'))
+        assert.truthy(rt:rowText(3):match('*10321032103210321b|'))
+        assert.truthy(rt:rowText(4):match('*21032103210321032c|'))
+        assert.truthy(rt:rowText(5):match( '-----------------'))
+        local attr = rt:cellAttr(2, 0)
+        local fg, bg, bold, blink = rote.fromAttr(attr)
+        assert.equal(0, bg)
+        assert.equal(1, fg)
+        -- move down
+        rt:keyPress(cursesConsts.KEY_DOWN)
+        sleep()
+        rt:update()
+        assert.truthy(rt:rowText(0):match( 'ABCDEFGHIJKLMNOPQ'))
+        assert.truthy(rt:rowText(1):match( '01010101010101010'))
+        assert.truthy(rt:rowText(2):match('*10321032103210321b|'))
+        assert.truthy(rt:rowText(3):match('*21032103210321032c|'))
+        assert.truthy(rt:rowText(4):match('*32103210321032103d|'))
+        assert.truthy(rt:rowText(5):match( '-----------------'))
+        local attr = rt:cellAttr(2, 0)
+        local fg, bg, bold, blink = rote.fromAttr(attr)
+        assert.equal(1, bg)
+        assert.equal(2, fg)
+        -- move right
+        rt:keyPress(cursesConsts.KEY_RIGHT)
+        sleep()
+        rt:update()
+        assert.truthy(rt:rowText(0):match( 'BCDEFGHIJKLMNOPQR'))
+        assert.truthy(rt:rowText(1):match( '10101010101010101'))
+        assert.truthy(rt:rowText(2):match('*03210321032103210b|'))
+        assert.truthy(rt:rowText(3):match('*10321032103210321c|'))
+        assert.truthy(rt:rowText(4):match('*21032103210321032d|'))
+        assert.truthy(rt:rowText(5):match( '-----------------'))
+        local attr = rt:cellAttr(2, 0)
+        local fg, bg, bold, blink = rote.fromAttr(attr)
+        assert.equal(1, bg)
+        assert.equal(2, fg)
+        -- move right again
+        rt:keyPress(cursesConsts.KEY_RIGHT)
+        sleep()
+        rt:update()
+        assert.truthy(rt:rowText(0):match( 'CDEFGHIJKLMNOPQRS'))
+        assert.truthy(rt:rowText(1):match( '01010101010101010'))
+        assert.truthy(rt:rowText(2):match('*32103210321032103b|'))
+        assert.truthy(rt:rowText(3):match('*03210321032103210c|'))
+        assert.truthy(rt:rowText(4):match('*10321032103210321d|'))
+        assert.truthy(rt:rowText(5):match( '-----------------'))
+        local attr = rt:cellAttr(2, 0)
+        local fg, bg, bold, blink = rote.fromAttr(attr)
+        assert.equal(1, bg)
+        assert.equal(2, fg)
+        -- quit
+        rt:write('q')
+    end)
 end)
