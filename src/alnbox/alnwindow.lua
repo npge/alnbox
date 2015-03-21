@@ -105,12 +105,16 @@ return function(window, p)
         end
     end
 
-    local function drawAll()
+    local function drawCell(row, col)
         local putCell = require 'alnbox.putCell'
+        local cell = pgetCell(row, col)
+        putCell(window, row, col, cell)
+    end
+
+    local function drawAll()
         for row = 0, win_rows - 1 do
             for col = 0, win_cols - 1 do
-                local cell = pgetCell(row, col)
-                putCell(window, row, col, cell)
+                drawCell(row, col)
             end
         end
     end
@@ -118,28 +122,70 @@ return function(window, p)
     local function moveUp()
         if start_row > 0 then
             start_row = start_row - 1
-            drawAll()
+            --
+            local removed_row = top_headers +
+                table_rows - 1
+            local new_row = top_headers
+            window:move(removed_row, 0)
+            window:deleteln()
+            window:move(new_row, 0)
+            window:insertln()
+            --
+            for col = 0, win_cols - 1 do
+                drawCell(new_row, col)
+            end
         end
     end
 
     local function moveDown()
         if start_row + table_rows < p.rows then
             start_row = start_row + 1
-            drawAll()
+            --
+            local removed_row = top_headers
+            local new_row = top_headers +
+                table_rows - 1
+            window:move(removed_row, 0)
+            window:deleteln()
+            window:move(new_row, 0)
+            window:insertln()
+            --
+            for col = 0, win_cols - 1 do
+                drawCell(new_row, col)
+            end
         end
     end
 
     local function moveLeft()
         if start_col > 0 then
             start_col = start_col - 1
-            drawAll()
+            --
+            local removed_col = left_headers +
+                table_cols - 1
+            local new_col = left_headers
+            for row = 0, win_rows - 1 do
+                window:move(row, removed_col)
+                window:delch()
+                window:move(row, new_col)
+                window:winsch(' ')
+                drawCell(row, new_col)
+            end
         end
     end
 
     local function moveRight()
         if start_col + table_cols < p.cols then
             start_col = start_col + 1
-            drawAll()
+            --
+            local removed_col = left_headers
+            local new_col = left_headers +
+                table_cols - 1
+            for row = 0, win_rows - 1 do
+                window:move(row, removed_col)
+                window:delch()
+                window:move(row, new_col)
+                window:winsch(' ')
+                drawCell(row, new_col)
+            end
         end
     end
 
