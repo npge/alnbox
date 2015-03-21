@@ -1,3 +1,7 @@
+-- alnbox, alignment viewer based on the curses library
+-- Copyright (C) 2015 Boris Nagaev
+-- See the LICENSE file for terms of use
+
 local function sleep()
     local duration = os.getenv('TEST_SLEEP') or 5
     os.execute('sleep ' .. duration)

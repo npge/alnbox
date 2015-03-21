@@ -1,3 +1,7 @@
+-- alnbox, alignment viewer based on the curses library
+-- Copyright (C) 2015 Boris Nagaev
+-- See the LICENSE file for terms of use
+
 describe("alnbox.navigate", function()
     it("calls method moveUp when a user presses UP", function()
         local cursesConsts = require 'alnbox.cursesConsts'

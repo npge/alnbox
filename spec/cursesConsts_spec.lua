@@ -1,3 +1,7 @@
+-- alnbox, alignment viewer based on the curses library
+-- Copyright (C) 2015 Boris Nagaev
+-- See the LICENSE file for terms of use
+
 describe("alnbox.cursesConsts", function()
     it("gets values of curses constants", function()
         local cursesConsts = require 'alnbox.cursesConsts'

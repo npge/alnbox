@@ -1,3 +1,7 @@
+-- alnbox, alignment viewer based on the curses library
+-- Copyright (C) 2015 Boris Nagaev
+-- See the LICENSE file for terms of use
+
 describe("alnbox.makePair", function()
     it("converts pair of colors to pair number", function()
         local makePair = require 'alnbox.makePair'
