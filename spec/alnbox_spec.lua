@@ -205,6 +205,7 @@ describe("alnbox.alnbox", function()
         local startCode = require 'alnbox.util'.startCode
         startCode(rt, function()
             local alnbox = require 'alnbox.alnbox'
+            local navigate = require 'alnbox.navigate'
             alnbox {rows = 6, cols = 50,
                 getCell = function(row, col)
                     return (row + 3 * col) % 4
@@ -238,6 +239,14 @@ describe("alnbox.alnbox", function()
                 bottom_headers = 1,
                 getBottomHeader = function(row, col)
                     return '-'
+                end,
+                -- custom binding:
+                -- key "1" results in moving to (1, 1)
+                navigate = function(aw, refresh, getch)
+                    return navigate(aw, refresh, getch,
+                        {[string.byte('1')] = function()
+                            aw:moveTo(1, 1)
+                        end})
                 end,
             }
         end)
@@ -325,6 +334,20 @@ describe("alnbox.alnbox", function()
         local fg, bg, bold, blink = rote.fromAttr(attr)
         assert.equal(3, bg)
         assert.equal(4, fg)
+        -- move to position (1, 1)
+        rt:write('1')
+        sleep()
+        rt:update()
+        assert.truthy(rt:rowText(0):match( 'BCDEFGHIJKLMNOPQR'))
+        assert.truthy(rt:rowText(1):match( '10101010101010101'))
+        assert.truthy(rt:rowText(2):match('*03210321032103210b|'))
+        assert.truthy(rt:rowText(3):match('*10321032103210321c|'))
+        assert.truthy(rt:rowText(4):match('*21032103210321032d|'))
+        assert.truthy(rt:rowText(5):match( '-----------------'))
+        local attr = rt:cellAttr(2, 0)
+        local fg, bg, bold, blink = rote.fromAttr(attr)
+        assert.equal(1, bg)
+        assert.equal(2, fg)
         -- quit
         rt:write('q')
     end)
