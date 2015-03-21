@@ -27,5 +27,6 @@ build = {
         ['alnbox.initializeCurses'] = 'src/alnbox/initializeCurses.lua',
         ['alnbox.putCell'] = 'src/alnbox/putCell.lua',
         ['alnbox.cleanChar'] = 'src/alnbox/cleanChar.lua',
+        ['alnbox.readFasta'] = 'src/alnbox/readFasta.lua',
     },
 }

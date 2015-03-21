@@ -13,4 +13,5 @@ return {
     initializeColors = require 'alnbox.initializeColors',
     putCell = require 'alnbox.putCell',
     cleanChar = require 'alnbox.cleanChar',
+    readFasta = require 'alnbox.readFasta',
 }
