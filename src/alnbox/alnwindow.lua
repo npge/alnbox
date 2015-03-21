@@ -26,6 +26,7 @@
 -- Result:
 -- Object with the following methods:
 --  * drawAll
+--  * moveTo(self, row, col)
 --  * moveUp
 --  * moveDown
 --  * moveLeft
@@ -117,6 +118,16 @@ return function(window, p)
                 drawCell(row, col)
             end
         end
+    end
+
+    local function moveTo(self, row, col)
+        row = math.max(row, 0)
+        row = math.min(row, win_rows - 1)
+        col = math.max(col, 0)
+        col = math.min(col, win_cols - 1)
+        start_row = row
+        start_col = col
+        drawAll()
     end
 
     local function moveUp()
@@ -219,6 +230,7 @@ return function(window, p)
 
     return {
         drawAll = drawAll,
+        moveTo = moveTo,
         moveUp = moveUp,
         moveDown = moveDown,
         moveRight = moveRight,
