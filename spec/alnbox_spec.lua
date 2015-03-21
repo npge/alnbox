@@ -45,6 +45,55 @@ describe("alnbox.alnbox", function()
         rt:write('q')
     end)
 
+    it("draws 1x1 alignment with all headers and #corners",
+    function()
+        local rote = require 'rote'
+        local rt = rote.RoteTerm(24, 80)
+        local startCode = require 'alnbox.util'.startCode
+        startCode(rt, function()
+            local alnbox = require 'alnbox.alnbox'
+            alnbox {rows = 1, cols = 1,
+                getCell = function()
+                    return 'X'
+                end,
+                left_headers = 1,
+                getLeftHeader = function()
+                    return '<'
+                end,
+                right_headers = 1,
+                getRightHeader = function()
+                    return '>'
+                end,
+                top_headers = 1,
+                getTopHeader = function()
+                    return '^'
+                end,
+                bottom_headers = 1,
+                getBottomHeader = function()
+                    return 'v'
+                end,
+                getTopLeft = function()
+                    return '/'
+                end,
+                getTopRight = function()
+                    return '`'
+                end,
+                getBottomRight = function()
+                    return '/'
+                end,
+                getBottomLeft = function()
+                    return '`'
+                end,
+            }
+        end)
+        sleep()
+        rt:update()
+        assert.equal('/^`', rt:rowText(0):sub(1, 3))
+        assert.equal('<X>', rt:rowText(1):sub(1, 3))
+        assert.equal('`v/', rt:rowText(2):sub(1, 3))
+        rt:write('q')
+    end)
+
     it("moves with arrow buttons", function()
         local rote = require 'rote'
         local cursesConsts = require 'alnbox.cursesConsts'

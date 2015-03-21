@@ -19,6 +19,10 @@
 --  * getLeftHeader -- function(row, col) -> table of fields
 --  * getRightHeader -- function(row, col) -> table of fields
 --  * getBottomHeader -- function(row, col) -> table of fields
+--  * getTopLeft -- function(row, col) -> table of fields
+--  * getTopRight -- function(row, col) -> table of fields
+--  * getBottomLeft -- function(row, col) -> table of fields
+--  * getBottomRight -- function(row, col) -> table of fields
 -- Result:
 -- Object with the following methods:
 --  * drawAll
@@ -91,6 +95,18 @@ return function(window, p)
         if row1 >= p.rows + bottom_headers or
                 col1 >= p.cols + right_headers then
             return ' '
+        elseif top_header and left_header and p.getTopLeft then
+            return p.getTopLeft(row, col)
+        elseif top_header and right_header and p.getTopRight then
+            local col2 = col - left_headers - table_cols
+            return p.getTopRight(row, col2)
+        elseif bottom_header and left_header and p.getBottomLeft then
+            local row2 = row - top_headers - table_rows
+            return p.getBottomLeft(row2, col)
+        elseif bottom_header and right_header and p.getBottomRight then
+            local row2 = row - top_headers - table_rows
+            local col2 = col - left_headers - table_cols
+            return p.getBottomRight(row2, col2)
         elseif (top_header or bottom_header) and
                 (left_header or right_header) then
             return ' '
