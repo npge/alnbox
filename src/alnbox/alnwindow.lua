@@ -128,6 +128,7 @@ return function(window, p)
     local function drawAll()
         for row = 0, win_rows - 1 do
             for col = 0, win_cols - 1 do
+                local curses = require 'posix.curses'
                 local cell = pgetCell(row, col)
                 if type(cell) ~= 'table' then
                     cell = {character=cell}
