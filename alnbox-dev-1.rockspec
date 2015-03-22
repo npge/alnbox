@@ -29,6 +29,7 @@ build = {
         ['alnbox.cleanChar'] = 'src/alnbox/cleanChar.lua',
         ['alnbox.readFasta'] = 'src/alnbox/readFasta.lua',
         ['alnbox.alignmentParameters'] = 'src/alnbox/alignmentParameters.lua',
+        ['alnbox.columnDigit'] = 'src/alnbox/columnDigit.lua',
     },
     install = {
         bin = {

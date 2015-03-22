@@ -15,4 +15,5 @@ return {
     cleanChar = require 'alnbox.cleanChar',
     readFasta = require 'alnbox.readFasta',
     alignmentParameters = require 'alnbox.alignmentParameters',
+    columnDigit = require 'alnbox.columnDigit',
 }
