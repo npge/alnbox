@@ -7,6 +7,16 @@ local function sleep()
     os.execute('sleep ' .. duration)
 end
 
+local function findLetter(rt, character)
+    for row = 0, rt:rows() - 1 do
+        for col = 0, rt:cols() - 1 do
+            if rt:cellChar(row, col) == character then
+                return row, col
+            end
+        end
+    end
+end
+
 describe("show-fasta.lua", function()
     it("shows contents of a fasta file", function()
         local fasta = [[
@@ -36,6 +46,11 @@ TGCTTCGGCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
         assert.truthy(rt:termText():match('b_59_0'))
         assert.truthy(rt:termText():match('a_0_59'))
         assert.falsy(rt:termText():match('TGCTTCGGCGTGCCG'))
+        -- find letters A and T, their attributes must differ
+        local A_row, A_col = assert(findLetter(rt, 'A'))
+        local T_row, T_col = assert(findLetter(rt, 'T'))
+        assert.not_equal(rt:cellAttr(A_row, A_col),
+                         rt:cellAttr(T_row, T_col))
         --
         rt:write('q')
         --

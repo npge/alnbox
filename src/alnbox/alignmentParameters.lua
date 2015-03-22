@@ -17,7 +17,14 @@ return function(alignment)
         local name = alignment.names[row + 1]
         local text = alignment.name2text[name]
         local ch = text:sub(col + 1, col + 1)
-        return ch -- TODO
+        -- assume DNA
+        local dnaCells = require 'alnbox.dnaCells'
+        local cc = require 'alnbox.cursesConsts'
+        return {
+            character = ch,
+            foreground = cc.COLOR_BLACK,
+            background = dnaCells.letter2background[ch],
+        }
     end
     p.getLeftHeader = function(row, col)
         local name = alignment.names[row + 1]
