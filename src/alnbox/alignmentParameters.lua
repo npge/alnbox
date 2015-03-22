@@ -23,5 +23,10 @@ return function(alignment)
         local name = alignment.names[row + 1]
         return name:sub(col + 1, col + 1)
     end
+    p.top_headers = 1
+    p.getTopHeader = function(_, col)
+        local columnDigit = require 'alnbox.columnDigit'
+        return columnDigit(col, p.cols)
+    end
     return p
 end
