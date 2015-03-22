@@ -30,6 +30,7 @@ build = {
         ['alnbox.readFasta'] = 'src/alnbox/readFasta.lua',
         ['alnbox.alignmentParameters'] = 'src/alnbox/alignmentParameters.lua',
         ['alnbox.columnDigit'] = 'src/alnbox/columnDigit.lua',
+        ['alnbox.dnaCells'] = 'src/alnbox/dnaCells.lua',
     },
     install = {
         bin = {

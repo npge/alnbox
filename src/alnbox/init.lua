@@ -16,4 +16,5 @@ return {
     readFasta = require 'alnbox.readFasta',
     alignmentParameters = require 'alnbox.alignmentParameters',
     columnDigit = require 'alnbox.columnDigit',
+    dnaCells = require 'alnbox.dnaCells',
 }
