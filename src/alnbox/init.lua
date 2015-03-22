@@ -14,4 +14,5 @@ return {
     putCell = require 'alnbox.putCell',
     cleanChar = require 'alnbox.cleanChar',
     readFasta = require 'alnbox.readFasta',
+    alignmentParameters = require 'alnbox.alignmentParameters',
 }
