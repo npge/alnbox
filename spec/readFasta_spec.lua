@@ -18,6 +18,7 @@ TGCTTCGGCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
         local readFasta = require 'alnbox.readFasta'
         local f = io.open(fname, 'r')
         local aln = readFasta(f)
+        f:close()
         assert.same({
             name2description = {
                 a_0_59 = "block=test",
