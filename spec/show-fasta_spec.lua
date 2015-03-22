@@ -45,6 +45,7 @@ TGCTTCGGCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
         rt:update()
         assert.truthy(rt:termText():match('b_59_0'))
         assert.truthy(rt:termText():match('a_0_59'))
+        assert.truthy(rt:termText():match('consensus'))
         assert.falsy(rt:termText():match('TGCTTCGGCGTGCCG'))
         -- find letters A and T, their attributes must differ
         local A_row, A_col = assert(findLetter(rt, 'A'))
