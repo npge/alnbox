@@ -30,4 +30,9 @@ build = {
         ['alnbox.readFasta'] = 'src/alnbox/readFasta.lua',
         ['alnbox.alignmentParameters'] = 'src/alnbox/alignmentParameters.lua',
     },
+    install = {
+        bin = {
+            "src/bin/show-fasta.lua"
+        }
+    }
 }
