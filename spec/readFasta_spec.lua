@@ -5,9 +5,11 @@
 describe("alnbox.readFasta", function()
     it("reads fasta file", function()
         local fasta = [[
+>c_59_0 block test
+TGCTTCGGCGTGCGGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
 >b_59_0 block=test
 TGCTTCGGCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
->a_0_59 block=test
+>a_0_59
 TGCTTCGGCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
 ]]
         local fname = os.tmpname()
@@ -21,14 +23,16 @@ TGCTTCGGCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
         f:close()
         assert.same({
             name2description = {
-                a_0_59 = "block=test",
+                a_0_59 = "",
                 b_59_0 = "block=test",
+                c_59_0 = "block test",
             },
             name2text = {
                 a_0_59 = "TGCTTCGGCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG",
                 b_59_0 = "TGCTTCGGCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG",
+                c_59_0 = "TGCTTCGGCGTGCGGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG",
             },
-            names = { "b_59_0", "a_0_59", },
+            names = { "c_59_0", "b_59_0", "a_0_59" },
         }, aln)
         --
         os.remove(fname)
