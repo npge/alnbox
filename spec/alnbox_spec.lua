@@ -7,11 +7,23 @@ local function sleep()
     os.execute('sleep ' .. duration)
 end
 
+local function startCode(rt, code)
+    if type(code) == 'function' then
+        code = string.dump(code)
+    end
+    local fname = os.tmpname()
+    local f = io.open(fname, 'w')
+    f:write(code)
+    f:close()
+    local cmd = 'lua -lluacov %s; rm %s'
+    cmd = cmd:format(fname, fname)
+    rt:forkPty(cmd)
+end
+
 describe("alnbox.alnbox", function()
     it("draws simple alignment", function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)
-        local startCode = require 'alnbox.util'.startCode
         startCode(rt, function()
             local alnbox = require 'alnbox.alnbox'
             alnbox {rows = 1, cols = 1,
@@ -26,7 +38,6 @@ describe("alnbox.alnbox", function()
     it("draws simple alignment with #right header", function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)
-        local startCode = require 'alnbox.util'.startCode
         startCode(rt, function()
             local alnbox = require 'alnbox.alnbox'
             alnbox {rows = 1, cols = 1,
@@ -49,7 +60,6 @@ describe("alnbox.alnbox", function()
     function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)
-        local startCode = require 'alnbox.util'.startCode
         startCode(rt, function()
             local alnbox = require 'alnbox.alnbox'
             alnbox {rows = 1, cols = 1,
@@ -98,7 +108,6 @@ describe("alnbox.alnbox", function()
         local rote = require 'rote'
         local cursesConsts = require 'alnbox.cursesConsts'
         local rt = rote.RoteTerm(5, 5)
-        local startCode = require 'alnbox.util'.startCode
         startCode(rt, function()
             local alnbox = require 'alnbox.alnbox'
             alnbox {rows = 6, cols = 6,
@@ -202,7 +211,6 @@ describe("alnbox.alnbox", function()
         local rote = require 'rote'
         local cursesConsts = require 'alnbox.cursesConsts'
         local rt = rote.RoteTerm(6, 20)
-        local startCode = require 'alnbox.util'.startCode
         startCode(rt, function()
             local alnbox = require 'alnbox.alnbox'
             local navigate = require 'alnbox.navigate'

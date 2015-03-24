@@ -7,11 +7,23 @@ local function sleep()
     os.execute('sleep ' .. duration)
 end
 
+local function startCode(rt, code)
+    if type(code) == 'function' then
+        code = string.dump(code)
+    end
+    local fname = os.tmpname()
+    local f = io.open(fname, 'w')
+    f:write(code)
+    f:close()
+    local cmd = 'lua -lluacov %s; rm %s'
+    cmd = cmd:format(fname, fname)
+    rt:forkPty(cmd)
+end
+
 describe("alnbox.alnwindow", function()
     it("draws simple alignment in a curses window", function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)
-        local startCode = require 'alnbox.util'.startCode
         startCode(rt, function()
             local curses = require 'posix.curses'
             local initializeCurses = require 'alnbox.initializeCurses'

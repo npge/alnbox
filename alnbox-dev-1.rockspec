@@ -21,7 +21,6 @@ build = {
         ['alnbox.alnwindow'] = 'src/alnbox/alnwindow.lua',
         ['alnbox.navigate'] = 'src/alnbox/navigate.lua',
         ['alnbox.cursesConsts'] = 'src/alnbox/cursesConsts.lua',
-        ['alnbox.util'] = 'src/alnbox/util.lua',
         ['alnbox.makePair'] = 'src/alnbox/makePair.lua',
         ['alnbox.initializeColors'] = 'src/alnbox/initializeColors.lua',
         ['alnbox.initializeCurses'] = 'src/alnbox/initializeCurses.lua',
