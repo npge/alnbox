@@ -22,6 +22,7 @@ install:
   - luarocks make --local
 
 script:
+  - LOAD_LUACOV=-lluacov busted
   - busted -c
 
 after_success:

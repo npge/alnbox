@@ -15,8 +15,9 @@ local function startCode(rt, code)
     local f = io.open(fname, 'w')
     f:write(code)
     f:close()
-    local cmd = 'lua -lluacov %s; rm %s'
-    cmd = cmd:format(fname, fname)
+    local lluacov = os.getenv('LOAD_LUACOV') or ''
+    local cmd = 'lua %s %s; rm %s'
+    cmd = cmd:format(lluacov, fname, fname)
     rt:forkPty(cmd)
 end
 
