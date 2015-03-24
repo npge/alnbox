@@ -4,6 +4,10 @@
 -- Copyright (C) 2015 Boris Nagaev
 -- See the LICENSE file for terms of use
 
+if os.getenv('LOAD_LUACOV') then
+    require 'luacov'
+end
+
 local alnbox = require 'alnbox'
 
 local fasta_fname = assert(arg[1])
