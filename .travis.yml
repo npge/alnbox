@@ -22,8 +22,10 @@ install:
   - luarocks make --local
 
 script:
+  - mv src _src
   - LOAD_LUACOV=-lluacov busted
   - busted -c
+  - mv _src src
 
 after_success:
   - luacov-coveralls -v
