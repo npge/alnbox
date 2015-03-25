@@ -12,5 +12,5 @@ $ show-fasta.lua demo/example.fasta
 
 ![show-fasta.lua](http://i.imgur.com/AE0E4lf.png)
 
-Scroll through alignment using scroll buttons,
+Scroll through alignment using arrow buttons,
 quit with button 'q'. Press SPACE to speed up scrolling.
