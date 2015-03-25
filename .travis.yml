@@ -25,6 +25,7 @@ script:
   - mv src _src
   - LOAD_LUACOV=-lluacov busted
   - busted -c
+  - sed 's@:.*/alnbox/@:.//src/alnbox/@' -i luacov.stats.out
   - mv _src src
 
 after_success:
