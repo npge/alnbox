@@ -57,6 +57,32 @@ describe("alnbox.alnbox", function()
         rt:write('q')
     end)
 
+    it("draws simple alignment with decoration", function()
+        local rote = require 'rote'
+        local rt = rote.RoteTerm(24, 80)
+        startCode(rt, function()
+            local alnbox = require 'alnbox.alnbox'
+            alnbox {rows = 1, cols = 1,
+                getCell = function()
+                    return {
+                        character='X',
+                        underline=true,
+                        bold=true,
+                        blink=true,
+                    }
+                end}
+        end)
+        sleep()
+        rt:update()
+        assert.truthy(rt:termText():match('X'))
+        local attr = rt:cellAttr(0, 0)
+        local fg, bg, bold, blink = rote.fromAttr(attr)
+        assert.truthy(bold)
+        assert.truthy(blink)
+        -- TODO rote can't test underline
+        rt:write('q')
+    end)
+
     it("draws 1x1 alignment with all headers and #corners",
     function()
         local rote = require 'rote'
