@@ -36,10 +36,13 @@ f:close()
 
 local fname2 = os.tmpname()
 
-local cmd = 'lua %s %s'
+local lluacov = os.getenv('LOAD_LUACOV') or ''
+
+local cmd = 'lua %s %s %s'
+cmd = cmd:format(lluacov, fname, fname2)
 
 local rt = rote.RoteTerm(24, 80)
-local pid = rt:forkPty(cmd:format(fname, fname2))
+local pid = rt:forkPty(cmd)
 wait.wait(pid)
 rt:forsakeChild()
 
