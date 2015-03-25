@@ -73,10 +73,7 @@ return function(window, p)
         local right_header = col + right_headers >= win_cols
         local row1 = start_row + row - top_headers
         local col1 = start_col + col - left_headers
-        if row1 >= p.rows + bottom_headers or
-                col1 >= p.cols + right_headers then
-            return ' '
-        elseif top_header and left_header and p.getTopLeft then
+        if top_header and left_header and p.getTopLeft then
             return p.getTopLeft(row, col)
         elseif top_header and right_header and p.getTopRight then
             local col2 = col - left_headers - table_cols
