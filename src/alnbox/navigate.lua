@@ -3,9 +3,7 @@
 -- See the LICENSE file for terms of use
 
 -- listen keyboard and call appropriate methods of AlnWindow
-return function(aw, refresh, getch, bindings)
-    local cursesConsts = require 'alnbox.cursesConsts'
-
+return function(aw, refresh, getch, bindings, curses)
     aw:drawAll()
 
     local last_action
@@ -13,25 +11,25 @@ return function(aw, refresh, getch, bindings)
     while true do
         refresh()
         local ch = getch()
-        if ch == cursesConsts.KEY_UP then
+        if ch == curses.KEY_UP then
             aw:moveUp()
             last_action = aw.moveUp
-        elseif ch == cursesConsts.KEY_DOWN then
+        elseif ch == curses.KEY_DOWN then
             aw:moveDown()
             last_action = aw.moveDown
-        elseif ch == cursesConsts.KEY_RIGHT then
+        elseif ch == curses.KEY_RIGHT then
             aw:moveRight()
             last_action = aw.moveRight
-        elseif ch == cursesConsts.KEY_LEFT then
+        elseif ch == curses.KEY_LEFT then
             aw:moveLeft()
             last_action = aw.moveLeft
-        elseif ch == cursesConsts.KEY_PPAGE then
+        elseif ch == curses.KEY_PPAGE then
             aw:moveUpEnd()
-        elseif ch == cursesConsts.KEY_NPAGE then
+        elseif ch == curses.KEY_NPAGE then
             aw:moveDownEnd()
-        elseif ch == cursesConsts.KEY_END then
+        elseif ch == curses.KEY_END then
             aw:moveRightEnd()
-        elseif ch == cursesConsts.KEY_HOME then
+        elseif ch == curses.KEY_HOME then
             aw:moveLeftEnd()
         elseif ch == string.byte('q') then
             break

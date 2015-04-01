@@ -3,7 +3,7 @@
 -- See the LICENSE file for terms of use
 
 -- gets an alignment, return parameters for alnbox
-return function(alignment)
+return function(alignment, curses)
     local p = {}
     p.rows = #alignment.names
     p.cols = 0
@@ -27,12 +27,11 @@ return function(alignment)
         local text = alignment.name2text[name]
         local ch = text:sub(col + 1, col + 1)
         -- assume DNA
-        local dnaCells = require 'alnbox.dnaCells'
-        local cc = require 'alnbox.cursesConsts'
+        local dnaCells = require('alnbox.dnaCells')(curses)
         return {
             character = ch,
-            foreground = cc.COLOR_BLACK,
-            background = dnaCells.letter2background[ch],
+            foreground = curses.COLOR_BLACK,
+            background = dnaCells[ch],
         }
     end
     p.getLeftHeader = function(row, col)
@@ -46,17 +45,16 @@ return function(alignment)
     end
     p.bottom_headers = 1
     p.getBottomHeader = function(_, col)
-        local cc = require 'alnbox.cursesConsts'
         local consensusChar = require 'alnbox.consensusChar'
         local ch, ident = consensusChar(col, alignment)
-        local bg = cc.COLOR_WHITE
-        local fg = cc.COLOR_BLACK
+        local bg = curses.COLOR_WHITE
+        local fg = curses.COLOR_BLACK
         if ident >= 0.9 then
-            bg = cc.COLOR_BLACK
-            fg = cc.COLOR_WHITE
+            bg = curses.COLOR_BLACK
+            fg = curses.COLOR_WHITE
         elseif ident >= 0.4 then
-            bg = cc.COLOR_CYAN
-            fg = cc.COLOR_BLACK
+            bg = curses.COLOR_CYAN
+            fg = curses.COLOR_BLACK
         end
         return {
             character = ch,

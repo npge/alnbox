@@ -277,11 +277,12 @@ describe("alnbox.alnbox", function()
                 end,
                 -- custom binding:
                 -- key "1" results in moving to (1, 1)
-                navigate = function(aw, refresh, getch)
+                navigate = function(aw, refresh, getch,
+                                    _, curses)
                     return navigate(aw, refresh, getch,
                         {[string.byte('1')] = function()
                             aw:moveTo(1, 1)
-                        end})
+                        end}, curses)
                 end,
             }
         end)

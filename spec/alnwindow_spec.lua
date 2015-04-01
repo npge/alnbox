@@ -44,7 +44,7 @@ describe("alnbox.alnwindow", function()
             local navigate = require 'alnbox.navigate'
             local refresh = function() win:refresh() end
             local getch = function() return win:getch() end
-            navigate(aw, refresh, getch)
+            navigate(aw, refresh, getch, nil, curses)
 
             curses.endwin()
         end)

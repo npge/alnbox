@@ -14,5 +14,7 @@ local fasta_fname = assert(arg[1])
 local fasta_f = io.open(fasta_fname, 'r')
 local aln = alnbox.readFasta(fasta_f)
 fasta_f:close()
-local parameters = alnbox.alignmentParameters(aln)
+
+local curses = require 'posix.curses'
+local parameters = alnbox.alignmentParameters(aln, curses)
 alnbox.alnbox(parameters)

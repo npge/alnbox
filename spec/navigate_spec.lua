@@ -23,7 +23,7 @@ describe("alnbox.navigate", function()
         spy.on(aw, "moveUp")
         --
         local navigate = require 'alnbox.navigate'
-        navigate(aw, refresh, getch)
+        navigate(aw, refresh, getch, nil, cursesConsts)
         assert.spy(aw.drawAll).was_called()
         assert.spy(aw.moveUp).was_called()
         assert.truthy(times_up >= 2)

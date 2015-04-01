@@ -19,7 +19,7 @@ return function(p)
     local navigate = p.navigate or require 'alnbox.navigate'
     local refresh = function() stdscr:refresh() end
     local getch = function() return stdscr:getch() end
-    navigate(win, refresh, getch)
+    navigate(win, refresh, getch, nil, curses)
 
     curses.endwin()
 end
