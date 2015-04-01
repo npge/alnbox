@@ -133,7 +133,7 @@ describe("alnbox.alnbox", function()
 
     it("moves with arrow buttons", function()
         local rote = require 'rote'
-        local cursesConsts = require 'alnbox.cursesConsts'
+        local cursesConsts = require 'rote.cursesConsts'
         local rt = rote.RoteTerm(5, 5)
         startCode(rt, function()
             local alnbox = require 'alnbox.alnbox'
@@ -236,7 +236,7 @@ describe("alnbox.alnbox", function()
 
     it("prints #headers", function()
         local rote = require 'rote'
-        local cursesConsts = require 'alnbox.cursesConsts'
+        local cursesConsts = require 'rote.cursesConsts'
         local rt = rote.RoteTerm(6, 20)
         startCode(rt, function()
             local alnbox = require 'alnbox.alnbox'

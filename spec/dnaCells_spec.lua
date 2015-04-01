@@ -4,7 +4,7 @@
 
 describe("alnbox.dnaCells", function()
     it("defines background colors for DNA letters", function()
-        local curses = require 'alnbox.cursesConsts'
+        local curses = require 'rote.cursesConsts'
         local dnaCells = require('alnbox.dnaCells')(curses)
         assert.truthy(dnaCells.A)
     end)

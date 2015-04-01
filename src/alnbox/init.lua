@@ -6,7 +6,6 @@ return {
     alnbox = require 'alnbox.alnbox',
     alnwindow = require 'alnbox.alnwindow',
     navigate = require 'alnbox.navigate',
-    cursesConsts = require 'alnbox.cursesConsts',
     makePair = require 'alnbox.makePair',
     initializeCurses = require 'alnbox.initializeCurses',
     initializeColors = require 'alnbox.initializeColors',

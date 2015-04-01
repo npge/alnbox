@@ -11,7 +11,6 @@ description = {
 dependencies = {
     "lua >= 5.1",
     "luaposix",
-    "lua-rote",
 }
 build = {
     type = "builtin",
@@ -20,7 +19,6 @@ build = {
         ['alnbox.alnbox'] = 'src/alnbox/alnbox.lua',
         ['alnbox.alnwindow'] = 'src/alnbox/alnwindow.lua',
         ['alnbox.navigate'] = 'src/alnbox/navigate.lua',
-        ['alnbox.cursesConsts'] = 'src/alnbox/cursesConsts.lua',
         ['alnbox.makePair'] = 'src/alnbox/makePair.lua',
         ['alnbox.initializeColors'] = 'src/alnbox/initializeColors.lua',
         ['alnbox.initializeCurses'] = 'src/alnbox/initializeCurses.lua',

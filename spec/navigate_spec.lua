@@ -4,7 +4,7 @@
 
 describe("alnbox.navigate", function()
     it("calls method moveUp when a user presses UP", function()
-        local cursesConsts = require 'alnbox.cursesConsts'
+        local cursesConsts = require 'rote.cursesConsts'
         local times_up = 0
         local aw = {
             drawAll = function() end,

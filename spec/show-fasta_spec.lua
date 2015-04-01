@@ -39,7 +39,7 @@ TCCTTC-GCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
         assert.truthy(rt:termText():match('a_0_59'))
         assert.truthy(rt:termText():match('TGCTTCGGCGTGCCG'))
         --
-        local cursesConsts = require 'alnbox.cursesConsts'
+        local cursesConsts = require 'rote.cursesConsts'
         rt:keyPress(cursesConsts.KEY_RIGHT)
         sleep()
         rt:update()
