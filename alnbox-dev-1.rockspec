@@ -29,6 +29,7 @@ build = {
         ['alnbox.columnDigit'] = 'src/alnbox/columnDigit.lua',
         ['alnbox.dnaCells'] = 'src/alnbox/dnaCells.lua',
         ['alnbox.consensusChar'] = 'src/alnbox/consensusChar.lua',
+        ['alnbox.makeAlignment'] = 'src/alnbox/makeAlignment.lua',
     },
     install = {
         bin = {

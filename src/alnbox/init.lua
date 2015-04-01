@@ -16,4 +16,5 @@ return {
     columnDigit = require 'alnbox.columnDigit',
     dnaCells = require 'alnbox.dnaCells',
     consensusChar = require 'alnbox.consensusChar',
+    makeAlignment = require 'alnbox.makeAlignment',
 }
