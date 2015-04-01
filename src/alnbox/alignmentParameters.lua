@@ -6,6 +6,7 @@
 return function(alignment, curses)
     local p = {}
     p.rows = #alignment.names
+    assert(p.rows > 0)
     p.cols = 0
     local bottom_left = "consensus"
     p.getBottomLeft = function(_, col)
@@ -19,6 +20,7 @@ return function(alignment, curses)
         p.cols = math.max(p.cols, #text)
         p.left_headers = math.max(p.left_headers, #name)
     end
+    assert(p.cols > 0)
     local spaces = p.left_headers - #bottom_left
     bottom_left = (" "):rep(spaces) .. bottom_left
     p.left_headers = p.left_headers + 1

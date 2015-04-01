@@ -30,4 +30,19 @@ TGCTTCGGCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
         --
         os.remove(fname)
     end)
+
+    it("throws if number of columns or wors is 0",
+    function()
+        local makeAlignment = require 'alnbox.makeAlignment'
+        local alignmentParameters =
+            require 'alnbox.alignmentParameters'
+        assert.has_error(function()
+            local aln = makeAlignment({}, {})
+            local parameters = alignmentParameters(aln)
+        end)
+        assert.has_error(function()
+            local aln = makeAlignment({'aaa'}, {aaa=''})
+            local parameters = alignmentParameters(aln)
+        end)
+    end)
 end)
