@@ -3,7 +3,7 @@
 -- See the LICENSE file for terms of use
 
 return {
-    alnbox = require 'alnbox.alnbox',
+    runAlnbox = require 'alnbox.runAlnbox',
     alnwindow = require 'alnbox.alnwindow',
     navigate = require 'alnbox.navigate',
     makePair = require 'alnbox.makePair',

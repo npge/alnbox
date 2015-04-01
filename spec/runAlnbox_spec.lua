@@ -21,13 +21,13 @@ local function startCode(rt, code)
     rt:forkPty(cmd)
 end
 
-describe("alnbox.alnbox", function()
+describe("alnbox.runAlnbox", function()
     it("draws simple alignment", function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)
         startCode(rt, function()
-            local alnbox = require 'alnbox.alnbox'
-            alnbox {rows = 1, cols = 1,
+            local runAlnbox = require 'alnbox.runAlnbox'
+            runAlnbox {rows = 1, cols = 1,
                 getCell = function() return 'X' end}
         end)
         sleep()
@@ -40,8 +40,8 @@ describe("alnbox.alnbox", function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)
         startCode(rt, function()
-            local alnbox = require 'alnbox.alnbox'
-            alnbox {rows = 1, cols = 1,
+            local runAlnbox = require 'alnbox.runAlnbox'
+            runAlnbox {rows = 1, cols = 1,
                 getCell = function()
                     return 'X'
                 end,
@@ -61,8 +61,8 @@ describe("alnbox.alnbox", function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)
         startCode(rt, function()
-            local alnbox = require 'alnbox.alnbox'
-            alnbox {rows = 1, cols = 1,
+            local runAlnbox = require 'alnbox.runAlnbox'
+            runAlnbox {rows = 1, cols = 1,
                 getCell = function()
                     return {
                         character='X',
@@ -88,8 +88,8 @@ describe("alnbox.alnbox", function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)
         startCode(rt, function()
-            local alnbox = require 'alnbox.alnbox'
-            alnbox {rows = 1, cols = 1,
+            local runAlnbox = require 'alnbox.runAlnbox'
+            runAlnbox {rows = 1, cols = 1,
                 getCell = function()
                     return 'X'
                 end,
@@ -136,8 +136,8 @@ describe("alnbox.alnbox", function()
         local cursesConsts = require 'rote.cursesConsts'
         local rt = rote.RoteTerm(5, 5)
         startCode(rt, function()
-            local alnbox = require 'alnbox.alnbox'
-            alnbox {rows = 6, cols = 6,
+            local runAlnbox = require 'alnbox.runAlnbox'
+            runAlnbox {rows = 6, cols = 6,
                 getCell = function(row, col)
                     return (row + 3 * col) % 4
                 end}
@@ -239,9 +239,9 @@ describe("alnbox.alnbox", function()
         local cursesConsts = require 'rote.cursesConsts'
         local rt = rote.RoteTerm(6, 20)
         startCode(rt, function()
-            local alnbox = require 'alnbox.alnbox'
+            local runAlnbox = require 'alnbox.runAlnbox'
             local navigate = require 'alnbox.navigate'
-            alnbox {rows = 6, cols = 50,
+            runAlnbox {rows = 6, cols = 50,
                 getCell = function(row, col)
                     return (row + 3 * col) % 4
                 end,

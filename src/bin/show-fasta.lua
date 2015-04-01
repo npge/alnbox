@@ -17,4 +17,4 @@ fasta_f:close()
 
 local curses = require 'posix.curses'
 local parameters = alnbox.alignmentParameters(aln, curses)
-alnbox.alnbox(parameters)
+alnbox.runAlnbox(parameters)

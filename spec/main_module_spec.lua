@@ -3,7 +3,7 @@
 -- See the LICENSE file for terms of use
 
 describe("alnbox", function()
-    pending("provides all submodules as fields", function()
+    it("provides all submodules as fields", function()
         local alnbox = require 'alnbox'
         local makeAlignment = require 'alnbox.makeAlignment'
         assert.equal(makeAlignment, alnbox.makeAlignment)
