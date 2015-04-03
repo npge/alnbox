@@ -7,10 +7,10 @@
 Show an alignment from FASTA file in terminal:
 
 ```bash
-$ show-fasta.lua demo/example.fasta
+$ show-fasta demo/example.fasta
 ```
 
-![show-fasta.lua](http://i.imgur.com/luimJHi.gif)
+![show-fasta](http://i.imgur.com/luimJHi.gif)
 
 Scroll through alignment using arrow buttons,
 quit with button 'q'. Press SPACE to speed up scrolling.

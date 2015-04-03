@@ -17,7 +17,7 @@ local function findLetter(rt, character)
     end
 end
 
-describe("show-fasta.lua", function()
+describe("show-fasta", function()
     it("shows contents of a fasta file", function()
         local fasta = [[
 >b_59_0 block=test
@@ -32,7 +32,7 @@ TCCTTC-GCGTGCCGGACCCGCGCACGCGCGAGGCCGTCAAGCTGTTCGTGGTGCTCGCG
         --
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 30)
-        rt:forkPty('show-fasta.lua ' .. fname)
+        rt:forkPty('show-fasta ' .. fname)
         sleep()
         rt:update()
         assert.truthy(rt:termText():match('b_59_0'))

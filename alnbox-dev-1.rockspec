@@ -33,7 +33,7 @@ build = {
     },
     install = {
         bin = {
-            "src/bin/show-fasta.lua"
+            "src/bin/show-fasta"
         }
     }
 }
