@@ -36,6 +36,27 @@ describe("alnbox.runAlnbox", function()
         rt:write('q')
     end)
 
+    it("draws simple alignment two times", function()
+        local rote = require 'rote'
+        local rt = rote.RoteTerm(24, 80)
+        startCode(rt, function()
+            local runAlnbox = require 'alnbox.runAlnbox'
+            runAlnbox {rows = 10, cols = 10,
+                getCell = function() return 'X' end}
+            runAlnbox {rows = 1, cols = 1,
+                getCell = function() return 'Y' end}
+        end)
+        sleep()
+        rt:update()
+        assert.truthy(rt:termText():match('X'))
+        rt:write('q')
+        sleep()
+        rt:update()
+        assert.truthy(rt:termText():match('Y'))
+        assert.falsy(rt:termText():match('X'))
+        rt:write('q')
+    end)
+
     it("draws simple alignment with #right header", function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)

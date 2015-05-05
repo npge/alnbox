@@ -16,5 +16,7 @@ return function(curses)
     local initializeColors = require 'alnbox.initializeColors'
     initializeColors(curses)
 
+    stdscr:clear()
+
     return stdscr
 end
