@@ -1,11 +1,11 @@
 package = "alnbox"
 version = "dev-1"
 source = {
-    url = "git://github.com/starius/alnbox.git"
+    url = "git://github.com/npge/alnbox.git"
 }
 description = {
     summary = "Alignment viewer based on the curses library",
-    homepage = "https://github.com/starius/alnbox",
+    homepage = "https://github.com/npge/alnbox",
     license = "MIT",
 }
 dependencies = {
