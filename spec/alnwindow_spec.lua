@@ -26,7 +26,7 @@ describe("alnbox.alnwindow", function()
         local rote = require 'rote'
         local rt = rote.RoteTerm(24, 80)
         startCode(rt, function()
-            local curses = require 'posix.curses'
+            local curses = require 'curses'
             local initializeCurses = require 'alnbox.initializeCurses'
             local stdscr = initializeCurses(curses)
 

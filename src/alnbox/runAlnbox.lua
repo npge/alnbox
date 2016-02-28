@@ -9,7 +9,7 @@
 --     getCell = function() return {character='5'} end,
 --   }
 return function(p)
-    local curses = require 'posix.curses'
+    local curses = require 'curses'
     local initializeCurses = require 'alnbox.initializeCurses'
     local stdscr = initializeCurses(curses)
 

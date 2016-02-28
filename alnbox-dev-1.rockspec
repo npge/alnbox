@@ -10,7 +10,7 @@ description = {
 }
 dependencies = {
     "lua >= 5.1",
-    "luaposix",
+    "lcurses",
 }
 build = {
     type = "builtin",
